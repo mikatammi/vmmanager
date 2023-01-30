@@ -12,7 +12,7 @@
   	    #, libX11
   	    }
       : {
-      defaultPackage.x86_64-linux =
+      packages.x86_64-linux.default =
       # Notice the reference to nixpkgs here.
       with import nixpkgs { system = "x86_64-linux"; };
       
@@ -20,16 +20,16 @@
         dynamic-linker = stdenv.cc.bintools.dynamicLinker;
 
       libPath = lib.makeLibraryPath [
-        stdenv.cc.cc qt5.qmake  qt5.qtbase qt5.qtdeclarative libX11
+        stdenv.cc.cc qt5.qmake  qt5.qtbase qt5.qtdeclarative qt5.qtquickcontrols qt5.qtquickcontrols2 qt5.qtgraphicaleffects  libX11
       ];
 
       in stdenv.mkDerivation rec {
 
         name = "vmmanager";
         
-        nativeBuildInputs = [ autoPatchelfHook qt5.wrapQtAppsHook qt5.qtdeclarative ];
+        nativeBuildInputs = [ autoPatchelfHook qt5.wrapQtAppsHook qt5.qtdeclarative qt5.qtquickcontrols qt5.qtquickcontrols2 qt5.qtgraphicaleffects ];
 
-        buildInputs = [ qt5.qmake qt5.qtbase qt5.qtdeclarative ];
+        buildInputs = [ qt5.qmake qt5.qtbase qt5.qtdeclarative qt5.qtquickcontrols qt5.qtquickcontrols2 qt5.qtgraphicaleffects ];
         
         src = self;
         
